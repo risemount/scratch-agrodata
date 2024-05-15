@@ -15,7 +15,7 @@ items = {
 }
 
 def afa_scratch(year: int, item: str, crop: str, url: str = 'https://agr.afa.gov.tw/afa/pgricecity.jsp'):
-    if not 86 <= year <= 110:
+    if not 86 <= year <= 111:
         raise ValueError("Invalid year data")
 
     # Request data

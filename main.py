@@ -6,7 +6,7 @@ import time
 import numpy as np
 
 # Assuming you have lists of parameters that correspond by index
-ROC_years = [ROC_year(y) for y in range(1997, 2022)]
+ROC_years = [ROC_year(y) for y in range(1997, 2023)]
 
 # Use zip to iterate over matched elements
 for year, item, crop in itertools.product(ROC_years, items.keys(), crops.keys()):
