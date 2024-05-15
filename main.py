@@ -2,7 +2,8 @@ from good_objects import ROC_year, afa_scratch, crops, items
 from bs4 import BeautifulSoup
 import pandas as pd
 import itertools
-
+import time
+import numpy as np
 
 # Assuming you have lists of parameters that correspond by index
 ROC_years = [ROC_year(y) for y in range(1997, 2022)]
@@ -33,8 +34,9 @@ for year, item, crop in itertools.product(ROC_years, items.keys(), crops.keys())
     # First row of data contains the headers
     if not ['查無資料！！'] in data:
         df = pd.DataFrame(data[1:], columns=data[0])
-    else: 
+        df.to_csv(f"./response/{crop}_{year}_{item}.csv", index = False, encoding = 'big5')
+    else:
         print(f"{(year, item, crop)} not found.")
         next
-    
-    df.to_csv(f"./response/{crop}_{year}_{item}.csv", index = False, encoding = 'big5')
+
+    time.sleep(np.round(np.random.normal(0.35, 0.001), 3))

@@ -5,7 +5,7 @@ def ROC_year(year):
         raise ValueError("ROC year start from 1912 !")
     else:
         return int(year - 1911)
-    
+
 crops= {
     'Maize': '002',
     'Wheat': '003',
@@ -26,7 +26,7 @@ items = {
 def afa_scratch(year: int, item: str, crop: str, url: str = 'https://agr.afa.gov.tw/afa/pgcropcity.jsp'):
     if not 86 <= year <= 110:
         raise ValueError("Invalid year data")
-    
+
     # Request data
     payload = {
         'accountingyear': str(year),
@@ -39,9 +39,14 @@ def afa_scratch(year: int, item: str, crop: str, url: str = 'https://agr.afa.gov
     }
 
     try:
+        # POST request
         response = requests.post(url, data = payload)
+
+        # Check the responses
         response.raise_for_status()  # Raises an HTTPError for bad responses (4XX, 5XX)
         print('Success')  # Outputs the response text directly
+
+        # Return response
         return response
     except requests.exceptions.HTTPError as errh:
         print("HTTP Error:", errh)
