@@ -7,23 +7,15 @@ def ROC_year(year):
         return int(year - 1911)
 
 crops= {
-    'Maize': '002',
-    'Wheat': '003',
-    'Soybean': '101',
-    'Tomato': '425',
-    'Sugarcane': '306',
-    'Taro': '440',
-    'Cabbage': '419'
+    'Rice': 'C01'
 }
 
 items = {
-    'winter': '00',
     'first_season': '01',
-    'second_seanson': '02',
-    'whole_year': '03'
+    'second_seanson': '02'
 }
 
-def afa_scratch(year: int, item: str, crop: str, url: str = 'https://agr.afa.gov.tw/afa/pgcropcity.jsp'):
+def afa_scratch(year: int, item: str, crop: str, url: str = 'https://agr.afa.gov.tw/afa/pgricecity.jsp'):
     if not 86 <= year <= 110:
         raise ValueError("Invalid year data")
 
@@ -31,8 +23,6 @@ def afa_scratch(year: int, item: str, crop: str, url: str = 'https://agr.afa.gov
     payload = {
         'accountingyear': str(year),
         'item': item,
-        'corn001': '',
-        'input803': '',
         'crop': crop,
         'city': '00',
         'btnSend': '送　出'

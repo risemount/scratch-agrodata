@@ -28,6 +28,7 @@ for year, item, crop in itertools.product(ROC_years, items.keys(), crops.keys())
     for row in rows:
         cols = [ele.text.strip() for ele in row.find_all('td')]
         if cols:  # Avoid empty lists from empty rows
+            cols = [col.replace(",", "") for col in cols]
             data.append(cols)
 
     # Create a DataFrame with the extracted data
@@ -39,4 +40,4 @@ for year, item, crop in itertools.product(ROC_years, items.keys(), crops.keys())
         print(f"{(year, item, crop)} not found.")
         next
 
-    time.sleep(np.round(np.random.normal(0.35, 0.001), 3))
+    time.sleep(np.round(np.random.normal(0.5, 0.03), 3))
