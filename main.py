@@ -6,7 +6,7 @@ import time
 import numpy as np
 
 # Assuming you have lists of parameters that correspond by index
-ROC_years = [ROC_year(y) for y in range(1997, 2022)]
+ROC_years = [ROC_year(y) for y in range(1997, 2023)] # From 86 to 111 ROC year
 
 # Use zip to iterate over matched elements
 for year, item, crop in itertools.product(ROC_years, items.keys(), crops.keys()):
@@ -28,14 +28,18 @@ for year, item, crop in itertools.product(ROC_years, items.keys(), crops.keys())
     for row in rows:
         cols = [ele.text.strip() for ele in row.find_all('td')]
         if cols:  # Avoid empty lists from empty rows
-            cols = [col.replace(",", "") for col in cols]
+            cols = [col.replace(",", "") for col in cols if "�" not in col]
             data.append(cols)
 
     # Create a DataFrame with the extracted data
     # First row of data contains the headers
     if not ['查無資料！！'] in data:
         df = pd.DataFrame(data[1:], columns=data[0])
-        df.to_csv(f"./response/{crop}_{year}_{item}.csv", index = False, encoding = 'big5')
+        try:
+            df.to_csv(f"./response/{crop}_{year}_{item}.csv", index = False, encoding = 'big5')
+        except UnicodeEncodeError as err:
+            print(f"{(year, item, crop)} got error: {err}")
+
     else:
         print(f"{(year, item, crop)} not found.")
         next

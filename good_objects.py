@@ -24,12 +24,12 @@ items = {
 }
 
 def afa_scratch(year: int, item: str, crop: str, url: str = 'https://agr.afa.gov.tw/afa/pgcropcity.jsp'):
-    if not 86 <= year <= 110:
+    if not 86 <= year <= 111:
         raise ValueError("Invalid year data")
 
     # Request data
     payload = {
-        'accountingyear': str(year),
+        'accountingyear': "{:03.0f}".format(year),
         'item': item,
         'corn001': '',
         'input803': '',
