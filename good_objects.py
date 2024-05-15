@@ -1,5 +1,4 @@
 import requests
-
 def ROC_year(year):
     if year < 1912:
         raise ValueError("ROC year start from 1912 !")
@@ -21,7 +20,7 @@ def afa_scratch(year: int, item: str, crop: str, url: str = 'https://agr.afa.gov
 
     # Request data
     payload = {
-        'accountingyear': str(year),
+        'accountingyear': "{:03.0f}".format(year),
         'item': item,
         'crop': crop,
         'city': '00',
