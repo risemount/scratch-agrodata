@@ -28,16 +28,18 @@ for year, item, crop in itertools.product(ROC_years, items.keys(), crops.keys())
     for row in rows:
         cols = [ele.text.strip() for ele in row.find_all('td')]
         if cols:  # Avoid empty lists from empty rows
-            cols = [col.replace(",", "") for col in cols]
+            cols = [col.replace(",", "") for col in cols if "�" not in col]
             data.append(cols)
 
     # Create a DataFrame with the extracted data
     # First row of data contains the headers
     if not ['查無資料！！'] in data:
         df = pd.DataFrame(data[1:], columns=data[0])
-        df.to_csv(f"./response/{crop}_{year}_{item}.csv", index = False, encoding = 'big5')
+        try:
+            df.to_csv(f"./response/{crop}_{year}_{item}.csv", index = False, encoding = 'big5')
+        except UnicodeEncodeError as err:
+            print(f"{(year, item, crop)} got error: {err}")
     else:
-        print(f"{(year, item, crop)} not found.")
-        next
+        print(f"{(year, item, crop)} not found")
 
     time.sleep(np.round(np.random.normal(0.5, 0.03), 3))
